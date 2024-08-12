@@ -1,21 +1,48 @@
-const handleSubmit = async () => {
-  try {
-    const res = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: input }],
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    setResponse(res.data.choices[0].message.content);
-  } catch (error) {
-    console.error('Error fetching data from OpenAI API:', error);
-    setResponse('Något gick fel. Försök igen.');
-  }
-};
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+import { WebView } from 'react-native-webview';
+
+// Importera din bild från assets-mappen
+import angelDevilImage from './assets/AngelDevil.png';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* Bild */}
+      <Image 
+        source={angelDevilImage} 
+        style={styles.image}
+      />
+      
+      {/* WebView för att visa webbsidan */}
+      <View style={styles.webviewContainer}>
+        <WebView 
+          source={{ uri: 'https://chatgpt.com/g/g-I0j6Vr00z-angel-s-and-devil-s-voice' }} 
+          style={styles.webview}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  image: {
+    width: 300,
+    height: 150,
+    alignSelf: 'center',
+    marginTop: 40,
+    marginBottom: 5,
+  },
+  webviewContainer: {
+    flex: 1,
+    width: '100%',
+    marginTop: -5,
+  },
+  webview: {
+    flex: 1,
+  },
+});
